@@ -1,0 +1,1193 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hermanos Garrido S.L. — Briefing Creativo</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Syne:wght@400;600;700;800&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0e0e10;
+    --surface: #18181c;
+    --surface2: #222228;
+    --border: #2e2e38;
+    --text: #e8e8f0;
+    --muted: #6b6b80;
+    --accent: #c9a96e;
+    --red: #e05252;
+    --green: #52b788;
+    --blue: #6ba3d6;
+  }
+
+  body {
+    font-family: 'DM Mono', monospace;
+    background: var(--bg);
+    color: var(--text);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    user-select: none;
+  }
+
+  /* TOP BAR */
+  .topbar {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 0 16px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+  }
+  .topbar-left { display: flex; align-items: center; gap: 12px; }
+  .topbar-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 13px; color: var(--accent); letter-spacing: 0.05em; }
+  .topbar-title { font-size: 11px; color: var(--muted); }
+  .topbar-right { display: flex; align-items: center; gap: 8px; }
+  .rec-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--red); animation: pulse-red 1.5s ease-in-out infinite; }
+  @keyframes pulse-red { 0%,100%{opacity:1} 50%{opacity:0.4} }
+  .rec-label { font-size: 10px; color: var(--red); letter-spacing: 0.1em; }
+  .timer { font-size: 11px; color: var(--muted); font-variant-numeric: tabular-nums; }
+
+  /* MAIN LAYOUT */
+  .main {
+    display: grid;
+    grid-template-columns: 1fr 420px;
+    grid-template-rows: 1fr;
+    flex: 1;
+    overflow: hidden;
+    gap: 0;
+  }
+
+  /* VIDEO AREA */
+  .video-area {
+    display: grid;
+    grid-template-rows: 1fr auto;
+    background: #0a0a0c;
+    position: relative;
+    overflow: hidden;
+    min-height: 0;
+  }
+
+  .slides-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 32px;
+    position: relative;
+    overflow-y: auto;
+    min-height: 0;
+  }
+
+  .slide {
+    background: #fafaf8;
+    color: #1a1a1a;
+    width: 90%;
+    max-width: 900px;
+    border-radius: 4px;
+    padding: 40px 56px;
+    font-family: 'Syne', sans-serif;
+    position: relative;
+    box-shadow: 0 40px 80px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.05);
+    display: none;
+    animation: slideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    flex-shrink: 0;
+  }
+  .slide.active { display: block; }
+  @keyframes slideIn {
+    from { opacity: 0; transform: scale(0.97) translateY(8px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+  }
+
+  .slide-header {
+    border-bottom: 2px solid #1a1a1a;
+    padding-bottom: 16px;
+    margin-bottom: 28px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+  .slide-company { font-size: 11px; font-weight: 600; color: #888; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 6px; }
+  .slide-title { font-size: 28px; font-weight: 800; color: #1a1a1a; line-height: 1.1; }
+  @keyframes float { 
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+  }
+  .slide-num { font-family: 'DM Mono', monospace; font-size: 10px; color: #bbb; background: #f0f0ee; padding: 3px 8px; border-radius: 2px; white-space: nowrap; margin-top: 4px; }
+
+  .slide-body { font-size: 14px; line-height: 1.7; color: #333; font-family: 'DM Mono', monospace; font-weight: 300; }
+  .slide-body p { margin-bottom: 12px; }
+  .slide-body strong { font-weight: 500; color: #1a1a1a; }
+  .slide-body .highlight { background: #fef3c7; padding: 2px 4px; border-radius: 2px; color: #92400e; font-weight: 500; }
+  .slide-body .contradiction { background: #fee2e2; padding: 2px 4px; border-radius: 2px; color: #991b1b; }
+  .slide-body .wow { background: #1a1a1a; color: #fafaf8; padding: 3px 8px; border-radius: 2px; font-size: 13px; font-family: 'Syne', sans-serif; font-weight: 700; letter-spacing: 0.05em; display: inline-block; margin: 2px 2px; }
+  .slide-body .budget { font-family: 'Syne', sans-serif; font-size: 42px; font-weight: 800; color: #1a1a1a; display: block; margin: 12px 0 4px; }
+  .slide-body .budget-sub { font-size: 11px; color: #888; }
+  .slide-body ul { padding-left: 0; list-style: none; }
+  .slide-body ul li { padding: 6px 0 6px 16px; border-bottom: 1px solid #eee; font-size: 13px; position: relative; }
+  .slide-body ul li::before { content: '→'; position: absolute; left: 0; color: #bbb; }
+  .slide-footer { margin-top: 24px; padding-top: 16px; border-top: 1px solid #e5e5e3; font-size: 10px; color: #bbb; font-family: 'DM Mono', monospace; letter-spacing: 0.05em; }
+
+  /* THUMBNAIL ROW */
+  .participants-bar {
+    display: flex;
+    gap: 8px;
+    padding: 12px 16px;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    align-items: center;
+    overflow-x: auto;
+  }
+
+  .participant {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    flex-shrink: 0;
+  }
+  .participant-video {
+    width: 80px;
+    height: 54px;
+    border-radius: 6px;
+    background: var(--surface2);
+    border: 2px solid transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .participant-video.speaking {
+    border-color: var(--green);
+    box-shadow: 0 0 0 2px rgba(82,183,136,0.35), 0 0 12px rgba(82,183,136,0.2);
+    animation: speaking-pulse 0.9s ease-in-out infinite;
+  }
+  @keyframes speaking-pulse {
+    0%, 100% { box-shadow: 0 0 0 2px rgba(82,183,136,0.35), 0 0 10px rgba(82,183,136,0.15); }
+    50% { box-shadow: 0 0 0 3px rgba(82,183,136,0.6), 0 0 18px rgba(82,183,136,0.35); }
+  }
+  .participant-video.muted-vid { filter: brightness(0.4); }
+  .avatar {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 22px;
+    color: var(--text);
+    text-align: center;
+  }
+  .participant-name { font-size: 9px; color: var(--muted); text-align: center; white-space: normal; max-width: 90px; line-height: 1.3; }
+  .mic-icon { position: absolute; bottom: 3px; right: 3px; font-size: 9px; }
+
+  /* SLIDE NAV - now inline in controls bar */
+  .slide-nav {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    padding: 6px 12px;
+    border-radius: 8px;
+  }
+  .nav-btn {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .nav-btn:hover { background: var(--border); border-color: var(--muted); }
+  .nav-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+  .slide-counter { font-size: 10px; color: var(--muted); white-space: nowrap; }
+
+  /* CHAT PANEL */
+  .chat-panel {
+    display: flex;
+    flex-direction: column;
+    background: var(--surface);
+    border-left: 1px solid var(--border);
+    overflow: hidden;
+  }
+  .chat-header {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border);
+    font-family: 'Syne', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .chat-badge {
+    background: var(--red);
+    color: white;
+    font-size: 9px;
+    font-family: 'DM Mono', monospace;
+    padding: 2px 6px;
+    border-radius: 100px;
+    font-weight: 400;
+    display: none;
+  }
+  .chat-badge.visible { display: inline; }
+  .chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    scroll-behavior: smooth;
+  }
+  .chat-messages::-webkit-scrollbar { width: 3px; }
+  .chat-messages::-webkit-scrollbar-track { background: transparent; }
+  .chat-messages::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+  .msg {
+    opacity: 0;
+    transform: translateY(6px);
+    animation: msgIn 0.3s ease forwards;
+  }
+  @keyframes msgIn { to { opacity: 1; transform: translateY(0); } }
+
+  .msg-header { display: flex; align-items: baseline; gap: 6px; margin-bottom: 3px; }
+  .msg-sender { font-family: 'Syne', sans-serif; font-size: 12px; font-weight: 700; }
+  .msg-sender.paco { color: #ffd700; }
+  .msg-sender.paco-jr { color: #52b788; }
+  .msg-sender.mc { color: #6ba3d6; }
+  .msg-sender.agency { color: #9333ea; }
+  .msg-sender.system { color: var(--muted); }
+  .msg-time { font-size: 10px; color: var(--muted); }
+  .msg-text { font-size: 13px; line-height: 1.55; color: var(--text); }
+  .msg-text.system-text { color: var(--muted); font-style: italic; }
+  .msg-emoji { font-size: 16px; }
+  .msg.reaction .msg-text { font-size: 20px; }
+
+  .typing-indicator {
+    display: none;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 12px;
+    border-top: 1px solid var(--border);
+    font-size: 10px;
+    color: var(--muted);
+  }
+  .typing-indicator.visible { display: flex; }
+  .dots span { display: inline-block; width: 4px; height: 4px; border-radius: 50%; background: var(--muted); margin: 0 1px; animation: dot-bounce 1.2s ease-in-out infinite; }
+  .dots span:nth-child(2) { animation-delay: 0.2s; }
+  .dots span:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes dot-bounce { 0%,80%,100%{transform:translateY(0)} 40%{transform:translateY(-4px)} }
+
+  .controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px 16px;
+    border-top: 1px solid var(--border);
+    background: var(--surface);
+    flex-shrink: 0;
+  }
+  .controls-divider {
+    width: 1px;
+    height: 28px;
+    background: var(--border);
+    margin: 0 4px;
+  }
+  .ctrl-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    padding: 7px 14px;
+    cursor: pointer;
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: var(--muted);
+    transition: all 0.15s;
+    min-width: 56px;
+  }
+  .ctrl-btn:hover { background: var(--border); }
+  .ctrl-btn.danger { border-color: var(--red); }
+  .ctrl-btn.danger:hover { background: var(--red); color: white; }
+  .ctrl-icon { font-size: 16px; }
+
+  /* NOTIFICATION */
+  .notif {
+    position: fixed;
+    top: 60px;
+    right: 16px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 6px;
+    padding: 10px 14px;
+    font-size: 11px;
+    max-width: 220px;
+    opacity: 0;
+    transform: translateX(20px);
+    transition: all 0.3s cubic-bezier(0.16,1,0.3,1);
+    z-index: 100;
+    pointer-events: none;
+  }
+  .notif.show { opacity: 1; transform: translateX(0); }
+  .notif-title { font-family: 'Syne', sans-serif; font-size: 10px; font-weight: 700; color: var(--accent); margin-bottom: 3px; }
+  .notif-body { color: var(--muted); line-height: 1.4; }
+
+  /* SLIDE SPECIFIC STYLES */
+  .slide-0 { background: #1a1a1a; color: #fafaf8; }
+  .slide-0 .slide-company { color: #888; border-bottom-color: #333; }
+  .slide-0 .slide-title { color: var(--accent); font-size: 36px; }
+  .slide-0 .slide-body { color: #bbb; }
+  .slide-0 .slide-num { background: #2a2a2a; color: #666; }
+  .slide-0 .slide-header { border-bottom-color: #333; }
+  .slide-0 .slide-footer { border-top-color: #333; color: #555; }
+
+  .slide-5 .budget { color: #991b1b; }
+
+  .progress-bar {
+    height: 2px;
+    background: var(--border);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+  .progress-fill {
+    height: 100%;
+    background: var(--accent);
+    transition: width 0.4s ease;
+  }
+  /* EXIT MODAL */
+  .exit-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    backdrop-filter: blur(6px);
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  .exit-overlay.show { opacity: 1; pointer-events: all; }
+  .exit-modal {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--red);
+    border-radius: 10px;
+    padding: 40px 44px;
+    max-width: 460px;
+    width: 90%;
+    text-align: center;
+    transform: scale(0.94) translateY(12px);
+    transition: transform 0.35s cubic-bezier(0.16,1,0.3,1);
+    box-shadow: 0 40px 80px rgba(0,0,0,0.6);
+  }
+  .exit-overlay.show .exit-modal { transform: scale(1) translateY(0); }
+  .exit-icon { font-size: 44px; margin-bottom: 16px; }
+  .exit-title { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; color: var(--text); margin-bottom: 6px; }
+  .exit-subtitle { font-family: 'DM Mono', monospace; font-size: 13px; color: var(--accent); margin-bottom: 20px; }
+  .exit-body { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--muted); line-height: 1.7; margin-bottom: 28px; }
+  .exit-actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-bottom: 16px; }
+  .exit-btn-back {
+    background: var(--green);
+    color: #0a1a10;
+    border: none;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    padding: 10px 22px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: opacity 0.15s;
+  }
+  .exit-btn-back:hover { opacity: 0.85; }
+  .exit-btn-stay {
+    background: var(--surface2);
+    color: var(--muted);
+    border: 1px solid var(--border);
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    padding: 10px 22px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .exit-btn-stay:hover { border-color: var(--muted); color: var(--text); }
+  .exit-footnote { font-family: 'DM Mono', monospace; font-size: 10px; color: #444; }
+
+  /* ERROR MODAL */
+  .error-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    backdrop-filter: blur(6px);
+    z-index: 300;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  .error-modal-overlay.show { opacity: 1; pointer-events: all; }
+  .error-modal {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--red);
+    border-radius: 10px;
+    padding: 40px 44px;
+    max-width: 420px;
+    width: 90%;
+    text-align: center;
+    transform: scale(0.94) translateY(12px);
+    transition: transform 0.35s cubic-bezier(0.16,1,0.3,1);
+    box-shadow: 0 40px 80px rgba(0,0,0,0.6);
+  }
+  .error-modal-overlay.show .error-modal { transform: scale(1) translateY(0); }
+  .error-icon { font-size: 44px; margin-bottom: 16px; }
+  .error-title { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 800; color: var(--red); margin-bottom: 12px; }
+  .error-body { font-family: 'DM Mono', monospace; font-size: 13px; color: var(--muted); line-height: 1.8; margin-bottom: 28px; white-space: pre-line; }
+  .error-actions { display: flex; gap: 10px; justify-content: center; }
+  .error-btn {
+    background: var(--red);
+    color: white;
+    border: none;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    padding: 10px 28px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: opacity 0.15s;
+  }
+  .error-btn:hover { opacity: 0.85; }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="topbar-left">
+    <span class="topbar-logo">MEETS</span>
+    <span class="topbar-title">Hermanos Garrido S.L. × Agencia — Presentación Briefing</span>
+  </div>
+  <div class="topbar-right">
+    <div class="rec-dot"></div>
+    <span class="rec-label">REC</span>
+    <span class="timer" id="timer">00:00</span>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- VIDEO AREA -->
+  <div class="video-area">
+    <div class="slides-container">
+
+      <!-- SLIDE 0: Portada -->
+      <div class="slide slide-0 active" id="slide-0">
+        <div class="progress-bar"><div class="progress-fill" id="progress" style="width:12.5%"></div></div>
+        <div class="slide-header">
+          <div>
+            <div class="slide-company">HERMANOS GARRIDO S.L. · FUNERARIA | 📍 LAS ANGUSTIAS, GRANADA</div>
+            <div class="slide-title" style="position: relative; margin-top: 20px;">
+              <span style="display: inline-block; position: relative;">
+                <span style="text-shadow: 3px 3px 0 rgba(0,0,0,0.3), 6px 6px 0 rgba(0,0,0,0.15);">Resurrección de Marca (Rebranding)</span>
+              </span>
+            </div>
+          </div>
+          <div class="slide-num">01 / 08</div>
+        </div>
+        <div class="slide-body">
+          <!-- LOGO HERMANOS GARRIDO -->
+          <div style="display:flex; align-items:center; gap:16px; margin-bottom:24px; padding:16px 20px; background:rgba(201,169,110,0.07); border:1px solid rgba(201,169,110,0.2); border-radius:6px; width:fit-content;">
+            <svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Cruz -->
+              <rect x="23" y="4" width="6" height="22" rx="1.5" fill="#c9a96e"/>
+              <rect x="14" y="11" width="24" height="6" rx="1.5" fill="#c9a96e"/>
+              <!-- Paloma simplificada -->
+              <ellipse cx="26" cy="38" rx="10" ry="6" fill="#c9a96e" opacity="0.85"/>
+              <path d="M16 38 Q18 32 26 34 Q34 32 36 38" fill="#c9a96e" opacity="0.6"/>
+              <!-- Ala izquierda -->
+              <path d="M16 36 Q10 30 13 35 Q14 37 16 38Z" fill="#c9a96e" opacity="0.7"/>
+              <!-- Ala derecha -->
+              <path d="M36 36 Q42 30 39 35 Q38 37 36 38Z" fill="#c9a96e" opacity="0.7"/>
+              <!-- Cabeza paloma -->
+              <circle cx="33" cy="34" r="3" fill="#c9a96e"/>
+              <!-- Ojo -->
+              <circle cx="34.2" cy="33.3" r="0.7" fill="#1a1a1a"/>
+              <!-- Pico -->
+              <path d="M35.5 34.5 L37.5 34 L35.5 35Z" fill="#e8c87a"/>
+            </svg>
+            <div>
+              <div style="font-family:'Syne',sans-serif; font-weight:800; font-size:15px; color:#c9a96e; letter-spacing:0.06em; text-transform:uppercase; line-height:1.2;">Hermanos Garrido</div>
+              <div style="font-family:'DM Mono',monospace; font-size:9px; color:#666; letter-spacing:0.12em; text-transform:uppercase; margin-top:3px;">Funeraria · Est. 1981 · Las Angustias, Granada</div>
+            </div>
+          </div>
+          <p>Relanzamiento de Marca y Campaña Digital</p>
+          <p style="margin-top:20px; font-size:11px; color:#666;"><strong style="color:#aaa">ok_1_si_final_versión_v2_DE_VERDAD_definitivo_v3_NOEDITES.pdf</strong> · <span style="color:#888">también la mandamos sin querer al proveedor de ataúdes</span></p>
+        </div>
+        <div class="slide-footer">CONFIDENCIAL · No distribuir · Bueno, si podéis, distribuidlo que necesitamos visibilidad</div>
+      </div>
+
+      <!-- SLIDE 1: Quiénes somos -->
+      <div class="slide" id="slide-1">
+        <div class="progress-bar"><div class="progress-fill" style="width:25%"></div></div>
+        <div class="slide-header">
+          <div>
+            <div class="slide-company">01. Quiénes somos</div>
+            <div class="slide-title">43 años<br>acompañando</div>
+          </div>
+          <div class="slide-num">02 / 08</div>
+        </div>
+        <div class="slide-body">
+          <p>Llevamos <strong>43 años</strong> acompañando a Granada en sus peores momentos. Somos familia, somos tradición, somos Las Angustias.</p>
+          <p>La gente ya no muere como antes. Bueno, <span class="contradiction">sí muere igual</span>, pero lo lleva diferente.</p>
+          <p>Mi hijo mayor ha vuelto del máster en Barcelona diciendo que tenemos un problema de <span class="highlight">brand awareness entre los menores de 60</span>.</p>
+          <p style="font-size:12px; color:#888; border-left: 3px solid #ddd; padding-left:12px; margin-top:16px;">El 100% de nuestros clientes nos conocen en el peor momento de su vida y eso no es un funnel, eso es un problema.</p>
+        </div>
+        <div class="slide-footer">* El hijo vino con un deck de 47 diapositivas sobre "brand repositioning". Solo usamos una.</div>
+      </div>
+
+      <!-- SLIDE 2: Objetivo -->
+      <div class="slide" id="slide-2">
+        <div class="progress-bar"><div class="progress-fill" style="width:37.5%"></div></div>
+        <div class="slide-header">
+          <div>
+            <div class="slide-company">02. Objetivo</div>
+            <div class="slide-title">Lo que<br>queremos</div>
+          </div>
+          <div class="slide-num">03 / 08</div>
+        </div>
+        <div class="slide-body">
+          <p>Quitarle el drama a la muerte. <span class="contradiction">Pero con respeto.</span></p>
+          <ul style="margin: 16px 0;">
+            <li>Cercano pero <span class="contradiction">no frívolo</span></li>
+            <li>Moderno pero <span class="contradiction">que no asuste a los mayores</span></li>
+            <li>Que emocione pero <span class="contradiction">que no haga llorar</span></li>
+            <li>Que sea viral pero <span class="contradiction">digno</span></li>
+            <li>Que venda pero <span class="contradiction">que no parezca que vendemos</span></li>
+          </ul>
+          <p style="font-size:13px; background:#f9f9f7; padding:12px; border-radius:4px; border-left:3px solid #1a1a1a;">Que la muerte apetezca. Bueno, <em>no así.</em> Pero algo así.</p>
+        </div>
+        <div class="slide-footer">Nota interna: hemos revisado este párrafo 11 veces y sigue siendo igual de contradictorio. Ya lo dejamos así.</div>
+      </div>
+
+      <!-- SLIDE 3: Tono y referencias -->
+      <div class="slide" id="slide-3">
+        <div class="progress-bar"><div class="progress-fill" style="width:50%"></div></div>
+        <div class="slide-header">
+          <div>
+            <div class="slide-company">03. Tono & Referencias</div>
+            <div class="slide-title">Tono,<br>vibración,<br>energía</div>
+          </div>
+          <div class="slide-num">04 / 08</div>
+        </div>
+        <div class="slide-body">
+          <p><strong>Tono:</strong> Cálido. Luminoso. Vital. De los recuerdos, no del cajón. <span class="highlight">Aunque el cajón también hay que venderlo, que tenemos stock de roble que no sale.</span></p>
+          <p style="margin-top:16px;"><strong>Referencias:</strong></p>
+          <ul>
+            <li>Coca-Cola en Navidad <span class="contradiction">pero sin villancicos</span></li>
+            <li>Cruzcampo en Feria <span class="contradiction">pero sin caseta y con gente llorando</span></li>
+            <li>Campaña tipo 'Aquarius' <span class="contradiction">pero sin que haya que bebérselo</span></li>
+          </ul>
+          <p style="margin-top:20px; text-align:center;">
+            <span class="wow">WOW</span>
+            <span class="wow">PUNCH</span>
+            <span class="wow">ESO ES LO QUE BUSCÁBAMOS</span>
+          </p>
+          <p style="font-size:11px; color:#999; margin-top:8px; text-align:center;">aunque todavía no sepamos qué buscamos</p>
+        </div>
+        <div class="slide-footer">WOW y PUNCH han aparecido 7 veces en la reunión de kick-off.</div>
+      </div>
+
+      <!-- SLIDE 4: Visual -->
+      <div class="slide" id="slide-4">
+        <div class="progress-bar"><div class="progress-fill" style="width:62.5%"></div></div>
+        <div class="slide-header">
+          <div>
+            <div class="slide-company">04. Identidad Visual</div>
+            <div class="slide-title">El logo<br>tiene alma</div>
+          </div>
+          <div class="slide-num">05 / 08</div>
+        </div>
+        <style>
+          @keyframes floatDove { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
+          .dove-float { display: inline-block; animation: floatDove 2.4s ease-in-out infinite; }
+          .logo-original-text { font-family: 'Times New Roman', Times, serif; font-size: 17px; font-weight: bold; color: #1a1a1a; text-shadow: 3px 3px 4px rgba(0,0,0,0.35), 1px 1px 0px #888; letter-spacing: 0.04em; }
+          .logo-paco-text { font-family: 'Times New Roman', Times, serif; font-size: 17px; font-weight: bold; color: #7c3aed; text-shadow: 3px 3px 4px rgba(109,40,217,0.3), 1px 1px 0px #c4b5fd; letter-spacing: 0.04em; }
+          .logo-mc-text { font-family: 'Times New Roman', Times, serif; font-size: 17px; font-weight: bold; color: #e05252; text-shadow: 3px 3px 4px rgba(224,82,82,0.3), 1px 1px 0px #fca5a5; letter-spacing: 0.04em; }
+        </style>
+        <div class="slide-body" style="display: flex; flex-direction: row; gap: 10px; align-items: stretch;">
+
+          <!-- VERSIÓN ORIGINAL -->
+          <div style="flex:1; background:#f0f0ee; padding:18px 12px; border-radius:4px; text-align:center; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; border: 2px solid #d0d0cc; position:relative;">
+            <div style="position:absolute; top:7px; left:8px; font-size:8px; color:#aaa; font-family:'DM Mono',monospace; letter-spacing:0.08em;">ORIGINAL · 1981</div>
+            <svg width="22" height="30" viewBox="0 0 28 36" fill="none" style="filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.25));"><rect x="11" y="0" width="6" height="36" rx="1" fill="#2a2a2a"/><rect x="0" y="10" width="28" height="6" rx="1" fill="#2a2a2a"/></svg>
+            <span class="dove-float" style="font-size:24px;">🕊️</span>
+            <div class="logo-original-text">HERMANOS GARRIDO</div>
+            <div style="font-size:8px; color:#777; font-family:'DM Mono',monospace;">Funeraria · Las Angustias · Granada</div>
+            <div style="margin-top:6px; background:#e0e0dc; border-radius:3px; padding:6px 8px; font-size:8px; color:#555; font-family:'DM Mono',monospace; font-style:italic; line-height:1.5;">"No lo toquéis, tiene valor sentimental. Pero renovadlo."</div>
+          </div>
+
+          <!-- VERSIÓN PACO (MORADO) -->
+          <div style="flex:1; background: linear-gradient(160deg, #faf5ff 0%, #f3e8ff 100%); padding:18px 12px; border-radius:4px; text-align:center; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; border: 2px solid #c4b5fd; position:relative;">
+            <div style="position:absolute; top:7px; left:8px; font-size:8px; color:#a78bfa; font-family:'DM Mono',monospace; letter-spacing:0.08em;">PROPUESTA PACO</div>
+            <svg width="22" height="30" viewBox="0 0 28 36" fill="none" style="filter: drop-shadow(2px 2px 3px rgba(109,40,217,0.4));"><rect x="11" y="0" width="6" height="36" rx="1" fill="#7c3aed"/><rect x="0" y="10" width="28" height="6" rx="1" fill="#7c3aed"/></svg>
+            <span class="dove-float" style="font-size:24px; filter: hue-rotate(250deg);">🕊️</span>
+            <div class="logo-paco-text">HERMANOS GARRIDO</div>
+            <div style="font-size:8px; color:#7c3aed; font-family:'DM Mono',monospace; opacity:0.8;">Funeraria · Las Angustias · Granada</div>
+            <div style="margin-top:6px; background:#ede9fe; border-radius:3px; padding:6px 8px; font-size:8px; color:#5b21b6; font-family:'DM Mono',monospace; font-style:italic; line-height:1.5;">"Es un color con dignidad."</div>
+          </div>
+
+          <!-- VERSIÓN MARI CARMEN (CORAL + MARIPOSA) -->
+          <div style="flex:1; background: linear-gradient(160deg, #fff8f5 0%, #ffe8e0 100%); padding:18px 12px; border-radius:4px; text-align:center; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; border: 2px solid #ffb8a0; position:relative;">
+            <div style="position:absolute; top:7px; left:8px; font-size:8px; color:#e05252; font-family:'DM Mono',monospace; letter-spacing:0.08em;">PROPUESTA MARI CARMEN</div>
+            <svg width="22" height="30" viewBox="0 0 28 36" fill="none" style="filter: drop-shadow(2px 2px 3px rgba(224,82,82,0.4));"><rect x="11" y="0" width="6" height="36" rx="1" fill="#e05252"/><rect x="0" y="10" width="28" height="6" rx="1" fill="#e05252"/></svg>
+            <span class="dove-float" style="font-size:24px; animation-delay: 0.5s;">🦋</span>
+            <div class="logo-mc-text">HERMANOS GARRIDO</div>
+            <div style="font-size:8px; color:#e05252; font-family:'DM Mono',monospace; opacity:0.8;">Funeraria · Las Angustias · Granada</div>
+            <div style="margin-top:6px; background:#ffe4dc; border-radius:3px; padding:6px 8px; font-size:8px; color:#b91c1c; font-family:'DM Mono',monospace; font-style:italic; line-height:1.5;">"La mariposa también tiene alas, como la paloma. ¿Ves? Y es más bonita."</div>
+          </div>
+
+        </div>
+        <p style="margin-top:10px; font-size:10px; background:#cce5ff; padding:9px 12px; border-radius:4px; border-left:3px solid #6ba3d6; color:#003366; font-family:'DM Mono',monospace;"><strong>⚠️ Nota interna:</strong> Mari Carmen <strong>no está en la empresa</strong> pero está metida en TODO, opina como accionista y aparece en todas las reuniones. La cuñada con poder veto.</p>
+        <div class="slide-footer">El logo no ha cambiado desde 1981. Mari Carmen sigue apareciendo en reuniones desde 2015.</div>
+      </div>
+
+      <!-- SLIDE 5: Entregables -->
+      <div class="slide" id="slide-5">
+        <div class="progress-bar"><div class="progress-fill" style="width:75%"></div></div>
+        <div class="slide-header">
+          <div>
+            <div class="slide-company">05. Entregables</div>
+            <div class="slide-title">Todo.<br>Lo queremos<br>todo.</div>
+          </div>
+          <div class="slide-num">06 / 08</div>
+        </div>
+        <div class="slide-body">
+          <ul>
+            <li>Identidad visual <strong>completa</strong></li>
+            <li>Campaña <strong>360º</strong></li>
+            <li>6 meses de contenido para <strong>todas las redes</strong>, incluido TikTok</li>
+            <li>Vídeo emocional 2 min + <strong>todos los cortes</strong></li>
+            <li>Cuña de radio</li>
+            <li>Flyer A5 doble cara <span class="highlight">con espacio porque a veces añadimos cosas a mano</span></li>
+          </ul>
+          <p style="margin-top:16px; font-size:12px; color:#888; background:#f9f9f7; padding:10px; border-radius:4px;">El vídeo si podéis producirlo vosotros mejor, que nosotros solo tenemos un <strong>iPhone 11</strong> y la luz del tanatorio no es muy favorecedora.</p>
+        </div>
+        <div class="slide-footer">Los entregables han aumentado x3 desde la reunión inicial. El presupuesto no se ha movido.</div>
+        <p style="margin-top:16px; font-size:12px; background:#fee2e2; padding:12px; border-radius:4px; border-left:3px solid #e05252; color:#991b1b;"><strong>⏰ Timing:</strong> Todo esto para <strong>dentro de dos semanas</strong>. Somos flexibles: si necesitáis tres días más, hablamos. Entendemos que sois creativos y que la inspiración no tiene horario. Pero el lunes en dos semanas, sí.</p>
+      </div>
+
+      <!-- SLIDE 6: Presupuesto -->
+      <div class="slide slide-5" id="slide-6">
+        <div class="progress-bar"><div class="progress-fill" style="width:87.5%"></div></div>
+        <div class="slide-header">
+          <div>
+            <div class="slide-company">06. Presupuesto & Timing</div>
+            <div class="slide-title">La parte<br>económica</div>
+          </div>
+          <div class="slide-num">07 / 08</div>
+        </div>
+        <div class="slide-body">
+          <span class="budget">2.800 €</span>
+          <span class="budget-sub">3.000€ si la propuesta es muy buena · Todo incluido · Producción de vídeo incluida · IVA excluido (esperamos)</span>
+          <p style="margin-top:20px; font-size:12px; color:#666; border-left:3px solid #fca5a5; padding-left:12px;">Somos conscientes de que es ajustado pero llevamos cuatro décadas en el negocio y sabemos que cuando hay <strong>vocación</strong> el dinero no es lo primero.</p>
+          <p style="margin-top:16px;"><strong>Timing:</strong> Mi madre cumple 80 en abril y queríamos tener algo para enseñarle.</p>
+          <p style="font-size:12px; color:#888;">No como regalo. Bueno, si coincide tampoco estaría mal.</p>
+        </div>
+        <div class="slide-footer">El presupuesto equivale aproximadamente a 0,4 spots de Super Bowl. Aproximadamente.</div>
+      </div>
+
+      <!-- SLIDE 7: La verdad -->
+      <div class="slide" id="slide-7">
+        <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+        <div class="slide-header">
+          <div>
+            <div class="slide-company">08. La Verdad</div>
+            <div class="slide-title">Ya sabéis<br>lo que<br>buscamos</div>
+          </div>
+          <div class="slide-num">08 / 08</div>
+        </div>
+        <div class="slide-body">
+          <p style="font-size:18px; line-height:1.6; font-family:'Syne',sans-serif; font-weight:700; color:#1a1a1a; margin-bottom:24px;">No queremos que parezca una funeraria.</p>
+          <p style="font-size:18px; line-height:1.6; font-family:'Syne',sans-serif; font-weight:700; color:#1a1a1a; margin-bottom:24px;">Pero que se entienda que somos una funeraria.</p>
+          <div style="margin-top:28px; padding:16px; background:#1a1a1a; border-radius:4px; color:#fafaf8;">
+            <p style="font-size:10px; color:#888; margin-bottom:6px; letter-spacing:0.1em;">CONTACTO</p>
+            <p style="font-size:14px; font-weight:700; color:#ff6b6b;">+34 647 XXX XXX</p>
+            <p style="font-size:12px; color:#bbb; margin-top:4px;">Preguntar por Paco</p>
+            <p style="font-size:11px; color:#888; margin-top:4px;">Si no coge es que está en un servicio. Ya llama él.</p>
+          </div>
+        </div>
+        <div class="slide-footer">FIN DEL BRIEFING · Gracias por vuestra atención y vuestro sacrificio</div>
+      </div>
+
+      <!-- NAVIGATION - moved to controls bar -->
+    </div>
+
+    <!-- PARTICIPANTS -->
+    <div class="participants-bar">
+      <div class="participant">
+        <div class="participant-video" id="vid-paco" style="background: #2a2015;">
+          <div class="avatar" style="color:#c9a96e;">P</div>
+          <span class="mic-icon">🎙️</span>
+        </div>
+        <div class="participant-name">Paco Garrido</div>
+      </div>
+      <div class="participant">
+        <div class="participant-video" id="vid-mc" style="background: #1a2030;">
+          <div class="avatar" style="color:#6ba3d6; font-size:14px;">M.C.</div>
+        </div>
+        <div class="participant-name">Mari Carmen (cuñada)</div>
+      </div>
+      <div class="participant">
+        <div class="participant-video" id="vid-paco-jr" style="background:#1a2510;">
+          <div class="avatar" style="color:#52b788; font-size:14px;">P.jr</div>
+        </div>
+        <div class="participant-name">Paco Jr. (máster BCN)</div>
+      </div>
+      <div class="participant">
+        <div class="participant-video muted-vid" id="vid-agency" style="background: #201530;">
+          <div class="avatar" style="color:#a78bfa; font-size:14px;">AGC</div>
+          <span class="mic-icon">🔇</span>
+        </div>
+        <div class="participant-name">Agencia (nosotros)</div>
+      </div>
+      <div class="participant">
+        <div class="participant-video" style="background: #2a1515;">
+          <div class="avatar" style="color:#e05252; font-size:14px;">???</div>
+        </div>
+        <div class="participant-name">Desconocido (no habla)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHAT PANEL -->
+  <div class="chat-panel">
+    <div class="chat-header">
+      Chat de reunión
+      <span class="chat-badge" id="chatBadge">nuevo</span>
+    </div>
+    <div class="chat-messages" id="chatMessages">
+      <div class="msg">
+        <div class="msg-header">
+          <span class="msg-sender system">Sistema</span>
+          <span class="msg-time">10:03</span>
+        </div>
+        <div class="msg-text system-text">Paco Garrido se ha unido a la reunión</div>
+      </div>
+      <div class="msg">
+        <div class="msg-header">
+          <span class="msg-sender system">Sistema</span>
+          <span class="msg-time">10:04</span>
+        </div>
+        <div class="msg-text system-text">Mari Carmen (cuñada) se ha unido a la reunión</div>
+      </div>
+      <div class="msg">
+        <div class="msg-header">
+          <span class="msg-sender paco">Paco Garrido</span>
+          <span class="msg-time">10:05</span>
+        </div>
+        <div class="msg-text">¿Se me oye? ¿Se me oye? ¿Estáis ahí?</div>
+      </div>
+      <div class="msg">
+        <div class="msg-header">
+          <span class="msg-sender paco">Paco Garrido</span>
+          <span class="msg-time">10:06</span>
+        </div>
+        <div class="msg-text">Perdona que llegue tarde, es que estaba en un servicio. Bueno, vamos al briefing</div>
+      </div>
+    </div>
+    <div class="typing-indicator" id="typingIndicator">
+      <span class="msg-sender paco" style="font-size:10px;">Paco</span>
+      <div class="dots"><span></span><span></span><span></span></div>
+    </div>
+  </div>
+</div>
+
+<!-- BOTTOM CONTROLS -->
+<div class="controls">
+  <div class="slide-nav">
+    <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)" disabled>← Ant.</button>
+    <span class="slide-counter" id="slideCounter">1 / 8</span>
+    <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">Sig. →</button>
+  </div>
+  <div class="controls-divider"></div>
+  <button class="ctrl-btn">
+    <span class="ctrl-icon">🎙️</span>
+    Silenciar
+  </button>
+  <button class="ctrl-btn">
+    <span class="ctrl-icon">📹</span>
+    Cámara
+  </button>
+  <button class="ctrl-btn">
+    <span class="ctrl-icon">🖥️</span>
+    Pantalla
+  </button>
+  <button class="ctrl-btn">
+    <span class="ctrl-icon">✋</span>
+    Levantar mano
+  </button>
+  <button class="ctrl-btn danger" onclick="endCall()">
+    <span class="ctrl-icon">📵</span>
+    Salir
+  </button>
+</div>
+
+<!-- NOTIFICATION -->
+<div class="notif" id="notif">
+  <div class="notif-title" id="notifTitle"></div>
+  <div class="notif-body" id="notifBody"></div>
+</div>
+
+<!-- EXIT POPUP MODAL -->
+<div class="exit-overlay" id="exitOverlay">
+  <div class="exit-modal">
+    <div class="exit-icon">🚪</div>
+    <div class="exit-title">Has abandonado la reunión</div>
+    <div class="exit-subtitle">Y la reunión no te ha abandonado a ti.</div>
+    <div class="exit-body">
+      Paco sigue hablando. Mari Carmen ya ha dicho "coral" otras dos veces.<br>
+      Paco Jr. ha mencionado Barcelona de nuevo.<br><br>
+      El briefing ha sido recibido. El trauma, también.<br>
+      Los 2.800€ siguen siendo 2.800€.
+    </div>
+    <div class="exit-actions">
+      <button class="exit-btn-back" onclick="rejoinCall()">↩ Volver a la reunión</button>
+      <button class="exit-btn-stay" onclick="stayOut()">Necesito aire fresco</button>
+    </div>
+    <div class="exit-footnote">* Volver a la reunión no borrará lo que ya has visto</div>
+  </div>
+</div>
+
+<div class="error-modal-overlay" id="errorModalOverlay">
+  <div class="error-modal">
+    <div class="error-icon">🚫</div>
+    <div class="error-title" id="errorTitle">Lo siento, no es posible.</div>
+    <div class="error-body" id="errorBody">Tienes que volver.<br>Necesitas el dinero.<br>Necesitas los 2.800€.</div>
+    <div class="error-actions">
+      <button class="error-btn" onclick="closeErrorModal()">Entendido</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ─── STATE ───────────────────────────────────────────────
+let currentSlide = 0;
+const totalSlides = 8;
+let timerSeconds = 0;
+let timerInterval;
+let callEnded = false;
+const chatEl = document.getElementById('chatMessages');
+const typingEl = document.getElementById('typingIndicator');
+const badgeEl = document.getElementById('chatBadge');
+
+// ─── TIMER ───────────────────────────────────────────────
+timerInterval = setInterval(() => {
+  timerSeconds++;
+  const m = String(Math.floor(timerSeconds / 60)).padStart(2, '0');
+  const s = String(timerSeconds % 60).padStart(2, '0');
+  document.getElementById('timer').textContent = `${m}:${s}`;
+}, 1000);
+
+// ─── AUDIO ───────────────────────────────────────────────
+const AudioContext = window.AudioContext || window.webkitAudioContext;
+const ctx = new AudioContext();
+
+function playBeep(freq=440, dur=0.1, vol=0.15, type='sine') {
+  try {
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.connect(gain); gain.connect(ctx.destination);
+    osc.frequency.value = freq;
+    osc.type = type;
+    gain.gain.setValueAtTime(vol, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + dur);
+    osc.start(); osc.stop(ctx.currentTime + dur);
+  } catch(e) {}
+}
+
+function playNotifSound() {
+  playBeep(880, 0.06, 0.1);
+  setTimeout(() => playBeep(1100, 0.08, 0.08), 80);
+}
+
+function playSlideSound() {
+  playBeep(660, 0.05, 0.08, 'square');
+}
+
+function playEndCallSound() {
+  playBeep(440, 0.1, 0.2);
+  setTimeout(() => playBeep(330, 0.1, 0.2), 120);
+  setTimeout(() => playBeep(220, 0.2, 0.15), 250);
+}
+
+function playTypingSound() {
+  playBeep(1200, 0.02, 0.04, 'square');
+}
+
+// ─── SLIDES ──────────────────────────────────────────────
+const slideMessages = [
+  // slide 0: portada — mensajes iniciales al arrancar
+  [
+    { sender: 'paco', text: 'Perfecto, empezamos. Paco Jr, ¿puedes compartir la presentación?', delay: 800 },
+    { sender: 'paco-jr', name: 'Paco Jr.', text: 'Ya está compartida papá. Lo hemos visto hace dos minutos.', delay: 2200 },
+    { sender: 'paco', text: 'Ah sí. Bueno. Adelante.', delay: 3500 },
+  ],
+  // slide 1 → "Quiénes somos"
+  [
+    { sender: 'paco', text: 'Lo del brand awareness lo explica muy bien mi hijo, lo del funnel ese. Yo no sé muy bien qué es un funnel pero suena importante', delay: 900 },
+    { sender: 'mc', name: 'Mari Carmen', text: 'Paco, lo del barrio también hay que explicarlo. "Las Angustias" no ayuda a la imagen de marca.', delay: 2800 },
+    { sender: 'paco', text: 'El barrio tiene mucha historia, Carmen', delay: 4200 },
+    { sender: 'mc', name: 'Mari Carmen', text: '¿Pero no lo puede hacer ChatGPT? He visto que hace logos y todo.', delay: 6000 },
+    { sender: 'agency', name: 'Agencia', text: '...', delay: 7200 },
+  ],
+  // slide 2 → "Objetivo"
+  [
+    { sender: 'paco', text: 'Cuando digo que emocione pero que no haga llorar me refiero a lo que ya sabéis. ¿Entendéis?', delay: 700 },
+    { sender: 'agency', name: 'Agencia', text: '...', delay: 2000 },
+    { sender: 'paco', text: 'Bien, me alegra que lo hayáis pillado', delay: 3100 },
+    { sender: 'system-msg', text: '🔇 La agencia tiene el micro en silencio', delay: 4000 },
+    { sender: 'mc', name: 'Mari Carmen', text: 'Mi sobrino sabe de diseño y dice que lo nuestro debería ir más en la línea de Canva. Que tiene muchas plantillas.', delay: 5500 },
+  ],
+  // slide 4 → "Identidad Visual"
+  [
+    { sender: 'mc', name: 'Mari Carmen', text: 'Lo del punch lo tenéis que sentir, no explicarlo. Como cuando ves un Zara Home y dices "esto es lo mío".', delay: 600 },
+    { sender: 'paco-jr', name: 'Paco Jr.', text: 'Las referencias son orientativas. Queríamos algo disruptivo, que rompa con el paradigma funerario establecido.', delay: 2200 },
+    { sender: 'paco', text: 'Eso, lo que ha dicho Paquito', delay: 3400 },
+    { sender: 'paco', text: 'Aunque el stock de roble de verdad que no sale. Hay que meterlo en algo.', delay: 4500 },
+    { sender: 'mc', name: 'Mari Carmen', text: 'Hacedlo como el logo de Apple pero diferente. Y más nuestro. Pero con ese rollo.', delay: 6200 },
+    { sender: 'paco-jr', name: 'Paco Jr.', text: 'Mamá no trabaja aquí.', delay: 7400 },
+    { sender: 'mc', name: 'Mari Carmen', text: 'Coral.', delay: 8100 },
+  ],
+  // slide 5 → "Entregables"
+  [
+    { sender: 'mc', name: 'Mari Carmen', text: 'El coral es cálido, moderno, y recuerda a la vida. Y a la muerte le viene bien un poquito de vida, ¿no?', delay: 800 },
+    { sender: 'paco', text: 'Yo sigo prefiriendo el morado. Es un color con dignidad.', delay: 2300 },
+    { sender: 'paco-jr', name: 'Paco Jr.', text: 'En mi deck de posicionamiento hay una paleta completa en neutros terrosos que creo que encaja mejor con el insight de marca.', delay: 3600 },
+    { sender: 'mc', name: 'Mari Carmen', text: 'Coral.', delay: 5000 },
+  ],
+  // slide 6 → "Presupuesto"
+  [
+    { sender: 'paco', text: 'El iPhone lo tengo con la pantalla rota pero hace fotos bien. Bueno, medio bien.', delay: 700 },
+    { sender: 'paco-jr', name: 'Paco Jr.', text: 'Para el TikTok el contenido tiene que ser auténtico. Nada de producción excesiva. Orgánico.', delay: 2000 },
+    { sender: 'agency', name: 'Agencia', text: 'Entonces... ¿producimos el vídeo o no?', delay: 3400 },
+    { sender: 'paco', text: 'Sí pero barato. Y que quede bien.', delay: 4600 },
+    { sender: 'paco', text: 'Para eso os pagamos. Para que lo resolváis vosotros.', delay: 6100 },
+  ],
+  // slide 7 → "La Verdad" (último)
+  [
+    { sender: 'paco', text: 'Sé que 2.800 parece poco para todo esto pero es que llevamos cuatro décadas y sabemos que cuando hay pasión el dinero... ya me entendéis', delay: 600 },
+    { sender: 'mc', name: 'Mari Carmen', text: 'Si la propuesta me convence yo hablo con Paco para que suban un poquito. Tengo influencia.', delay: 2300 },
+    { sender: 'paco-jr', name: 'Paco Jr.', text: 'En Barcelona por este proyecto pedirían mínimo 40.000€.', delay: 3800 },
+    { sender: 'paco', text: 'Menos mal que no estamos en Barcelona', delay: 5100 },
+    { sender: 'system-msg', text: '😬 La agencia ha silenciado su cámara', delay: 6000 },
+    { sender: 'paco', text: 'Y nada más. ¿Preguntas?', delay: 7500 },
+    { sender: 'paco', text: 'Ah, y los que habéis venido antes del lunes que me mandéis algo para ver si vamos por buen camino', delay: 9000 },
+    { sender: 'paco-jr', name: 'Paco Jr.', text: 'Papá, hoy es jueves.', delay: 10200 },
+    { sender: 'paco', text: 'Entonces para pasado mañana', delay: 11300 },
+    { sender: 'mc', name: 'Mari Carmen', text: 'Y que tenga punch 🙌', delay: 12600 },
+    { sender: 'agency', name: 'Agencia', text: '...', delay: 14000 },
+    { sender: 'system-msg', text: '🏆 Bonus point: "Esto me ha pasado de verdad" — 3 personas del chat', delay: 15500 },
+  ],
+];
+
+function changeSlide(dir) {
+  const prev = currentSlide;
+  currentSlide = Math.max(0, Math.min(totalSlides - 1, currentSlide + dir));
+  if (currentSlide === prev) return;
+
+  document.getElementById(`slide-${prev}`).classList.remove('active');
+  document.getElementById(`slide-${currentSlide}`).classList.add('active');
+  document.getElementById('prevBtn').disabled = currentSlide === 0;
+  document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+  document.getElementById('slideCounter').textContent = `${currentSlide + 1} / ${totalSlides}`;
+
+  playSlideSound();
+  triggerMessages(currentSlide);
+}
+
+function triggerMessages(fromSlide) {
+  const msgs = slideMessages[fromSlide];
+  if (!msgs) return;
+  msgs.forEach(m => {
+    setTimeout(() => {
+      if (m.sender !== 'system-msg') showTyping(m.sender);
+      setTimeout(() => {
+        hideTyping();
+        addMessage(m.sender, m.name || null, m.text);
+        playNotifSound();
+        flashBadge();
+      }, m.delay + 600);
+    }, m.delay);
+  });
+}
+
+let typingTimeout;
+function showTyping(sender) {
+  const names = { paco: 'Paco', 'paco-jr': 'Paco Jr.', mc: 'Mari Carmen', agency: 'Agencia' };
+  const el = typingEl.querySelector('.msg-sender');
+  el.textContent = names[sender] || sender;
+  typingEl.classList.add('visible');
+  clearTimeout(typingTimeout);
+  setSpeaking(sender);
+}
+function hideTyping() {
+  typingEl.classList.remove('visible');
+}
+
+function addMessage(sender, name, text) {
+  const senderClass = {
+    paco: 'paco', 'paco-jr': 'paco-jr', mc: 'mc', agency: 'agency', 'system-msg': 'system'
+  }[sender] || 'system';
+  const displayName = name || { paco: 'Paco Garrido', 'paco-jr': 'Paco Jr.', mc: 'Mari Carmen', agency: 'Agencia', 'system-msg': 'Sistema' }[sender];
+  const timeStr = (() => {
+    const totalMins = 6 + Math.floor(timerSeconds / 60); // empieza en 10:06
+    const h = 10;
+    const m = totalMins % 60;
+    return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}`;
+  })();
+
+  // Flash speaking indicator on message arrival
+  if (sender !== 'system-msg') setSpeaking(sender);
+
+  const isSystem = sender === 'system-msg';
+  const div = document.createElement('div');
+  div.className = 'msg';
+  div.innerHTML = `
+    <div class="msg-header">
+      <span class="msg-sender ${senderClass}">${displayName}</span>
+      <span class="msg-time">${timeStr}</span>
+    </div>
+    <div class="msg-text${isSystem ? ' system-text' : ''}">${text}</div>
+  `;
+  chatEl.appendChild(div);
+  chatEl.scrollTop = chatEl.scrollHeight;
+}
+
+function flashBadge() {
+  badgeEl.classList.add('visible');
+  setTimeout(() => badgeEl.classList.remove('visible'), 3000);
+}
+
+// ─── SPEAKING INDICATOR ──────────────────────────────────
+const vidMap = {
+  'paco': 'vid-paco',
+  'paco-jr': 'vid-paco-jr',
+  'mc': 'vid-mc',
+  'agency': 'vid-agency'
+};
+let speakingTimeout = null;
+
+function setSpeaking(sender) {
+  // Clear all speaking states
+  Object.values(vidMap).forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.classList.remove('speaking');
+  });
+  if (sender && vidMap[sender]) {
+    const el = document.getElementById(vidMap[sender]);
+    if (el) el.classList.add('speaking');
+  }
+  clearTimeout(speakingTimeout);
+  if (sender) {
+    speakingTimeout = setTimeout(() => {
+      const el = document.getElementById(vidMap[sender]);
+      if (el) el.classList.remove('speaking');
+    }, 3500);
+  }
+}
+
+
+function showNotif(title, body, duration=3500) {
+  const n = document.getElementById('notif');
+  document.getElementById('notifTitle').textContent = title;
+  document.getElementById('notifBody').textContent = body;
+  n.classList.add('show');
+  setTimeout(() => n.classList.remove('show'), duration);
+}
+
+// ─── END CALL ────────────────────────────────────────────
+function endCall() {
+  if (callEnded) return;
+  callEnded = true;
+  playEndCallSound();
+  clearInterval(timerInterval);
+  document.querySelector('.rec-dot').style.animation = 'none';
+  document.querySelector('.rec-dot').style.background = '#555';
+  document.querySelector('.rec-label').style.color = '#555';
+  // Show exit modal
+  setTimeout(() => {
+    document.getElementById('exitOverlay').classList.add('show');
+  }, 400);
+  addMessage('system-msg', null, '📵 Has abandonado la reunión. Paco sigue hablando.');
+  setTimeout(() => addMessage('paco', null, '¿Hola? ¿Seguís ahí? ¿Se ha caído la conexión?'), 2500);
+  setTimeout(() => addMessage('mc', 'Mari Carmen', 'Han colgado. ¿Lo del coral lo han apuntado?'), 4000);
+}
+
+function rejoinCall() {
+  document.getElementById('exitOverlay').classList.remove('show');
+  callEnded = false;
+  document.querySelector('.rec-dot').style.animation = 'pulse-red 1.5s ease-in-out infinite';
+  document.querySelector('.rec-dot').style.background = 'var(--red)';
+  document.querySelector('.rec-label').style.color = 'var(--red)';
+  timerInterval = setInterval(() => {
+    timerSeconds++;
+    const m = String(Math.floor(timerSeconds / 60)).padStart(2, '0');
+    const s = String(timerSeconds % 60).padStart(2, '0');
+    document.getElementById('timer').textContent = `${m}:${s}`;
+  }, 1000);
+  setTimeout(() => {
+    addMessage('paco', null, 'Ah, habéis vuelto. Os decía que lo del coral...');
+    playNotifSound();
+  }, 600);
+}
+
+function stayOut() {
+  document.getElementById('exitOverlay').classList.remove('show');
+  // Mostrar un modal de error después de un pequeño delay
+  setTimeout(() => {
+    showErrorModal('Lo siento, no es posible.', 'Tienes que volver.\nNecesitas el dinero.\nNecesitas los 2.800€.');
+  }, 300);
+}
+
+function showErrorModal(title, body) {
+  document.getElementById('errorTitle').textContent = title;
+  document.getElementById('errorBody').textContent = body;
+  document.getElementById('errorModalOverlay').classList.add('show');
+}
+
+function closeErrorModal() {
+  document.getElementById('errorModalOverlay').classList.remove('show');
+}
+
+// ─── KEYBOARD ─────────────────────────────────────────────
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); changeSlide(1); }
+  if (e.key === 'ArrowLeft') { e.preventDefault(); changeSlide(-1); }
+});
+
+// ─── INIT ─────────────────────────────────────────────────
+setTimeout(() => showNotif('Paco Garrido', 'Perdona la demora. Ya estoy. ¿Me oís?'), 2000);
+</script>
+</body>
+</html>
